@@ -9,7 +9,7 @@ pub struct Claim<'info> {
     pub recipient: Signer<'info>,
     
     /// The depositor who created the escrow
-    /// CHECK: Needed for PDA seeds verification
+    /// CHECK: Only used in seeds, safe
     pub depositor: UncheckedAccount<'info>,
     
     /// The escrow PDA account
@@ -23,7 +23,7 @@ pub struct Claim<'info> {
         bump = escrow.bump,
         has_one = recipient @ EscrowError::UnauthorizedClaim,
         has_one = depositor,
-        close = depositor
+        close = recipient
     )]
     pub escrow: Account<'info, Escrow>,
     
